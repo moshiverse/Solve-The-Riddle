@@ -1,0 +1,19 @@
+# Java / NetBeans / IntelliJ
+/build/
+/dist/
+/nbproject/private/
+/.idea/
+/out/
+
+# Compiled files
+*.class
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local config (important)
+*.env
