@@ -27,6 +27,7 @@ public class PlayerPoint extends javax.swing.JFrame{
      */
     public PlayerPoint() {
         initComponents();
+        makeFullScreenAndCenter();
         player = new PlayerInfo();
         gameRules.setVisible(false);
         rulesList.setEnabled(false);
@@ -190,7 +191,30 @@ public class PlayerPoint extends javax.swing.JFrame{
         // TODO add your handling code here:    
         this.setVisible(false);
     }//GEN-LAST:event_btnExitActionPerformed
+    
+    private void makeFullScreenAndCenter() {
+        // 1. Set the window to fullscreen maximized
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 
+        // 2. Create a background wrapper with GridBagLayout (automatically centers contents)
+        javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        wrapper.setBackground(java.awt.Color.BLACK); // Black borders around the game
+
+        // 3. Grab the original content pane (which holds all your perfectly placed UI elements)
+        java.awt.Container originalContentPane = getContentPane();
+        
+        // 4. Force the original game to stay exactly 750x500 so it doesn't stretch
+        originalContentPane.setPreferredSize(new java.awt.Dimension(750, 500));
+        originalContentPane.setMinimumSize(new java.awt.Dimension(750, 500));
+        originalContentPane.setMaximumSize(new java.awt.Dimension(750, 500));
+
+        // 5. Place the whole original game inside the center of the black wrapper
+        wrapper.add(originalContentPane);
+
+        // 6. Set the wrapper as the new base screen of the JFrame
+        setContentPane(wrapper);
+    }
+    
     private void btnStart1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart1ActionPerformed
             String playerName = txtPlayerName.getText();
 
@@ -228,10 +252,24 @@ public class PlayerPoint extends javax.swing.JFrame{
                 String sql = "INSERT INTO playerdata(name,hintcoin,level) " + " VALUES('" + player.getName() + "' , '" + player.getHintCoin() + "','" + player.getLevel()+ "')";        
                 st = con.createStatement();
                 st.execute(sql);
-                 
-                RiddleGameMain start = new RiddleGameMain(player);
-                start.setVisible(true);
+                
                 this.setVisible(false);
+
+                RiddlerStart story = new RiddlerStart();
+                story.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE); 
+                story.setVisible(true);
+
+                story.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e) {
+                        try {
+                            RiddleGameMain start = new RiddleGameMain(player);
+                            start.setVisible(true);
+                        } catch (SQLException ex) {
+                            java.util.logging.Logger.getLogger(PlayerPoint.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                        }
+                    }
+                });
             }  
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PlayerPoint.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
