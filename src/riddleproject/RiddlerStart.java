@@ -109,8 +109,6 @@ public class RiddlerStart extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Guess The Riddle - STORYLINE");
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 750, 500));
-        setMaximumSize(new java.awt.Dimension(750, 500));
-        setMinimumSize(new java.awt.Dimension(750, 500));
         setSize(new java.awt.Dimension(750, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
