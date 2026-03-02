@@ -41,7 +41,8 @@ public class RiddleGameMain extends javax.swing.JFrame{
     Statement st; 
 
     public RiddleGameMain(PlayerInfo player) throws SQLException {
-        initComponents();     
+        initComponents();
+        makeFullScreenAndCenter();
         this.player = player;
         profilePanel.setVisible(false);
         endPanel.setVisible(false);
@@ -108,6 +109,29 @@ public class RiddleGameMain extends javax.swing.JFrame{
         }
         });
         }
+    }
+    
+    private void makeFullScreenAndCenter() {
+        // 1. Set the window to fullscreen maximized
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+
+        // 2. Create a background wrapper with GridBagLayout (automatically centers contents)
+        javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        wrapper.setBackground(java.awt.Color.BLACK); // Black borders around the game
+
+        // 3. Grab the original content pane (which holds all your perfectly placed UI elements)
+        java.awt.Container originalContentPane = getContentPane();
+        
+        // 4. Force the original game to stay exactly 750x500 so it doesn't stretch
+        originalContentPane.setPreferredSize(new java.awt.Dimension(750, 500));
+        originalContentPane.setMinimumSize(new java.awt.Dimension(750, 500));
+        originalContentPane.setMaximumSize(new java.awt.Dimension(750, 500));
+
+        // 5. Place the whole original game inside the center of the black wrapper
+        wrapper.add(originalContentPane);
+
+        // 6. Set the wrapper as the new base screen of the JFrame
+        setContentPane(wrapper);
     }
 
     public void setStory(){

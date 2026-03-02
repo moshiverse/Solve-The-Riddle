@@ -63,7 +63,7 @@ public class PlayerPoint extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Guess The Riddle - LOGIN");
-        setMinimumSize(new java.awt.Dimension(750, 500));
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         gameRules.setBackground(new java.awt.Color(255, 255, 204));
